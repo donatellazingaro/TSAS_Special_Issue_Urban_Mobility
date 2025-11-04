@@ -46,9 +46,9 @@ Urban Mobility · Spatial Cognition · Urban Morphology · Street Network Analys
 
 | Directory / File | Description |
 |-----------------|-------------|
-| `notebooks/` | Feature engineering, robust regressions, moderation analyses, Bayesian multivariate model |
+| `notebooks/` | sensitivity analysis, robust regressions, moderation analyses, Bayesian multivariate model |
 | `src/` | Modular Python scripts for preprocessing, urban-form computation, and diagnostics |
-| `data/` | Metadata + links to anonymized OSF datasets |
+| `data/` | data + links to anonymized OSF datasets |
 | `requirements.txt` | Python dependencies and pinned versions for reproducibility |
 | `CITATION.cff` | Machine-readable citation metadata |
 
