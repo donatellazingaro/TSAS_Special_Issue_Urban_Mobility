@@ -1,8 +1,33 @@
+# Core scientific computing
+pandas==2.2.2
 numpy==1.26.4
-pandas==2.1.4
-matplotlib==3.8.0
-scikit-learn==1.7.0
-statsmodels==0.14.0
-jupyterlab==4.0.11
-ipykernel==6.28.0
-pyarrow==14.0.2
+scikit-learn==1.5.2
+scipy==1.13.1
+
+# Modeling and statistics
+statsmodels==0.14.2
+pymc==5.15.1
+arviz==0.18.0
+
+# Visualization
+matplotlib==3.9.0
+
+# Geospatial stack
+geopandas==0.14.3
+shapely==2.0.4
+osmnx==1.9.4
+networkx==3.2.1
+
+# Parallel + scalable processing
+dask==2024.5.1
+
+# IO (parquet, arrow)
+pyarrow==16.1.0
+
+# Extras for data cleaning & types
+python-dateutil==2.9.0.post0
+tqdm==4.66.4
+
+# Jupyter environment
+jupyterlab==4.2.2
+ipykernel==6.29.4
