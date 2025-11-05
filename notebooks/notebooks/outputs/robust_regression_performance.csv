@@ -1,0 +1,5 @@
+Model,Target,Predictors,N,MAD,Pseudo_R2,CV_MAD_Mean,CV_MAD_SD
+CV_Betweenness,cv_iti_z,"orientation_entropy_z, betweenness_log_z, degree_mean_z, circuity_log_z, SA_z, SBSOD_z, Gender_M",2399,0.5818683110891785,0.03191886123184362,0.6033274283494152,0.07650402554739966
+CV_Closeness,cv_iti_z,"orientation_entropy_z, closeness_log_z, degree_mean_z, circuity_log_z, SA_z, SBSOD_z, Gender_M",2399,0.5884653268669331,0.03439897438885897,0.6060121988262752,0.0676341515917323
+Tap_Betweenness,tap_rate_z,"orientation_entropy_z, betweenness_log_z, degree_mean_z, circuity_log_z, SA_z, SBSOD_z, Gender_M",2399,0.5368962530990723,0.029612075231545854,0.5759598254951704,0.03879402395131162
+Tap_Closeness,tap_rate_z,"orientation_entropy_z, closeness_log_z, degree_mean_z, circuity_log_z, SA_z, SBSOD_z, Gender_M",2399,0.5378876270469832,0.030602481155375894,0.576977527518265,0.036723849914072876

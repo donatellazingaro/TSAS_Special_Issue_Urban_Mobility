@@ -1,0 +1,25 @@
+                    Robust linear Model Regression Results                    
+==============================================================================
+Dep. Variable:               cv_iti_z   No. Observations:                 2399
+Model:                            RLM   Df Residuals:                     2391
+Method:                          IRLS   Df Model:                            7
+Norm:                          HuberT                                         
+Scale Est.:                       mad                                         
+Cov Type:                          H1                                         
+Date:                Wed, 05 Nov 2025                                         
+Time:                        10:15:51                                         
+No. Iterations:                    22                                         
+=========================================================================================
+                            coef    std err          z      P>|z|      [0.025      0.975]
+-----------------------------------------------------------------------------------------
+const                    -0.1230      0.040     -3.099      0.002      -0.201      -0.045
+orientation_entropy_z     0.0295      0.031      0.946      0.344      -0.032       0.091
+closeness_log_z          -0.0789      0.036     -2.202      0.028      -0.149      -0.009
+degree_mean_z             0.0050      0.027      0.183      0.855      -0.049       0.058
+circuity_log_z            0.0167      0.021      0.812      0.417      -0.024       0.057
+SA_z                      0.1397      0.021      6.564      0.000       0.098       0.181
+SBSOD_z                   0.0508      0.021      2.379      0.017       0.009       0.093
+Gender_M                  0.1057      0.049      2.170      0.030       0.010       0.201
+=========================================================================================
+
+If the model instance has been used for another fit with different fit parameters, then the fit options might not be the correct ones anymore .
