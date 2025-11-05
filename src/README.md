@@ -1,111 +1,99 @@
 # Preprocessing Pipeline for MapOnTap Datasets
 
-This directory contains the preprocessing workflow used to prepare the **MapOnTap (MoT)** datasets for analysis.  
-Each script performs a specific step in the pipeline — from raw CSV conversion to GPS alignment and the computation of urban form metrics.
-
-All datasets are anonymized and preprocessed derivatives of the original tappigraphy, GPS, and questionnaire data collected by the **GIVA Lab** at the University of Zurich.
+This directory documents the preprocessing workflow that was used to
+transform raw smartphone behavior and GPS traces into the anonymized,
+analysis-ready datasets used in the study.
 
 ---
 
-##  Pipeline Overview
+### Data Availability
+
+For privacy and ethical reasons, the raw GPS trajectories and
+tappigraphy event streams collected via the MapOnTap platform cannot be
+distributed publicly. These data contain sensitive human mobility
+information and are protected under the GIVA Lab data governance policy
+and ethical approvals.
+
+Accordingly, the scripts in this directory are provided for
+transparency and reproducibility in principle, but cannot be executed
+end-to-end without authorized access to the restricted raw datasets.
+
+Where possible, anonymized and aggregated derivatives of the final
+feature tables are shared separately via the Supplementary Materials and
+the OSF repository associated with this project.
+
+---
+
+## Overview of Scripts
+
+Each Python script corresponds to a specific stage of the preprocessing
+pipeline, from ingestion to GPS–tap alignment and computation of
+urban-form metrics. All scripts are written for scalability and memory
+safety (for example, chunked reads and cached OSM network tiles).
+
+---
 
 ### `convert_csv_to_parquet.py`
 
-Converts large raw CSV files into optimized **Parquet** format using [Dask](https://dask.org/).  
-This enables scalable, memory-efficient data processing for subsequent steps.
+Efficiently converts large CSV logs into Parquet format using Dask.
+Supports parallel processing and minimizes memory usage.
 
-- Handles large datasets using chunked reads.  
-- Uses the `pyarrow` backend for fast I/O.  
-- Outputs `optimized_explosion_mot3.parquet` to the `/processed/` directory.
-
-**Usage**
-```bash
-python convert_csv_to_parquet.py 
-```
+---
 
 ### `align_taps_gps.py`
 
-Aligns touchscreen interaction timestamps (tappigraphy) with GPS coordinates, linking behavioral and spatial data at the session level.
+Aligns tappigraphy events with the nearest available GPS point within a
+±30-second matching window. Produces per-participant aligned datasets
+and preserves session structure.
 
-- Matches each tap timestamp to the nearest GPS point within ±30 seconds.  
-- Expands GPS sequences into individual coordinate entries.  
-- Produces per-participant aligned Parquet files and a combined dataset.  
-- Reports coverage statistics before and after alignment.
-
-**Usage**
-```bash
-python align_taps_gps.py 
-```
+---
 
 ### `urbanform_features.py`
 
-Computes street-network metrics for each session’s representative GPS point using **OSMnx**.
+Derives street-network metrics at multiple spatial scales using OSMnx
+and network analysis. The extracted features include:
 
-**Extracted features include:**
-- Closeness  
-- Betweenness  
-- Degree  
-- Orientation Entropy  
-- Circuity  
-- Number of Nodes  
-- Number of Edges  
+- Closeness centrality
+- Betweenness centrality
+- Degree
+- Orientation entropy
+- Circuity
+- Counts of nodes and edges
 
-Performs multi-scale analysis with configurable buffer sizes (default: 200 m, 500 m, 1000 m).  
-Optionally integrates GHSL DUC shapefiles to classify sessions as urban or rural.
+Optional integration with GHSL DUC allows classification of sessions
+with respect to urbanicity.
 
-**Usage**
-```bash
-python urbanform_features.py \
-  --data-root /data/MoT3/ \
-  --input /data/MoT3/processed/Taps_GPS_aligned_30sec.parquet \
-  --buffers 200 500 1000
-```
+---
 
 ### `classify_urban_rural.py`
 
-Classifies each GPS point or session as **urban** or **rural** using the GHSL DUC global urban grid.
-
-- Loads aligned GPS data from `Taps_GPS_aligned_30sec.parquet`.  
-- Performs spatial join with GHSL polygons.  
-- Adds a binary `is_urban` column to the dataset.  
-- Exports both CSV and Parquet outputs.
-
-**Usage**
-```bash
-python classify_urban_rural.py \
-  --input /data/MoT3/processed/Taps_GPS_aligned_30sec.parquet \
-  --ghsl-shp /path/to/GHSL_DUC.shp \
-  --out /data/MoT3/output/aligned_with_urban.parquet
-```
-
-### Reproducibility Notes
-
-- All scripts are modular and can be executed independently.  
-- Graph tiles from OpenStreetMap are cached locally under `/cache/osm_tiles/`.  
-- Derived datasets are anonymized and non-sensitive.  
-- Original tappigraphy and GPS data are protected under the GIVA Lab ethical protocol.
-
-Researchers seeking access to the original data should contact:
-
-> **GIVA Lab – University of Zurich**  
-> [https://www.geo.uzh.ch/en/units/giva.html](https://www.geo.uzh.ch/en/units/giva.html)
+Classifies each session or GPS point as urban or rural using GHSL
+polygon data. Adds a binary `is_urban` column to the table and supports
+robust parsing of list-like coordinate formats.
 
 ---
 
-##  Core Packages
+## Reproducibility
 
-- pandas  
-- numpy  
-- pyarrow  
-- dask  
-- geopandas  
-- shapely  
-- osmnx  
-- networkx  
+Although the original raw data are protected, the full computational
+methodology is openly shared:
+
+- Full source code available in this repository
+- Data structures and variable definitions documented in the project
+- All analytic results in the manuscript are reproducible using the
+shared anonymized derivatives
+- Urban-form computation is deterministic once the OSM tile cache is fixed
+
+Researchers seeking controlled access to restricted raw data should
+contact the GIVA Lab at the University of Zurich.
 
 ---
 
-##  Recommended Environment
+## Dependencies
 
-- Python ≥ 3.9  
-- ≥ 8 GB RAM  
+- Python 3.10 or later
+- pandas, numpy, dask
+- geopandas, shapely, osmnx, networkx
+- pyarrow (Parquet I/O)
+
+Dependency versions are pinned in `requirements.txt`.
