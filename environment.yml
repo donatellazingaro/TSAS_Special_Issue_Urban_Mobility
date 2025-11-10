@@ -4,22 +4,19 @@ channels:
   - defaults
 dependencies:
   - python=3.10
-  - numpy
-  - pandas
-  - matplotlib
-  - scikit-learn
-  - statsmodels
-  - geopandas
-  - shapely
-  - osmnx
-  - networkx
-  - dask
-  - pyarrow
+  - numpy=1.26.4
+  - pandas=2.2.2
+  - scikit-learn=1.5.2
+  - scipy=1.13.1
+  - statsmodels=0.14.2
+  - matplotlib=3.9.0
+  - geopandas=0.14.3
+  - shapely=2.0.4
+  - osmnx=1.9.4
+  - networkx=3.2.1
+  - dask=2024.5.1
+  - pyarrow=14.0.2
   - pip
   - pip:
-      - pytest
-      - flake8
-<<<<<<< HEAD
-=======
-      - package_name_not_in_conda
->>>>>>> 48b1e10b4bc5007ca25bb67f37c8a37e9f095547
+      - pymc==5.15.1
+      - arviz==0.18.0

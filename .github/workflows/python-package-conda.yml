@@ -8,7 +8,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    # Make sure all steps run inside the actual repository folder
     defaults:
       run:
         working-directory: TSAS_Special_Issue_Urban_Mobility
@@ -17,7 +16,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Show working directory contents  # 🔍 diagnostic (safe to keep)
+      - name: Show working directory contents  # diagnostic
         run: |
           echo "Current directory:"
           pwd
@@ -29,21 +28,26 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/conda_pkgs_dir
-          key: ${{ runner.os }}-conda-${{ hashFiles('environment.yml') }}
+          key: ${{ runner.os }}-conda-${{ hashFiles('TSAS_Special_Issue_Urban_Mobility/environment.yml') }}
           restore-keys: |
             ${{ runner.os }}-conda-
 
-      # Set up Conda environment using Mamba
+      # Set up Conda environment with Mamba
       - name: Set up Miniconda
         uses: conda-incubator/setup-miniconda@v3
         with:
-          activate-environment: ci-environment    # must match name in environment.yml
-          environment-file: environment.yml
+          activate-environment: ci-environment       # must match environment.yml
+          environment-file: TSAS_Special_Issue_Urban_Mobility/environment.yml
           python-version: 3.10
           auto-update-conda: true
           use-mamba: true
-          channels: conda-forge, defaults
-          use-only-tar-bz2: true
+          channels: conda-forge,defaults
+          condarc-file: |
+            channels:
+              - conda-forge
+              - defaults
+            channel_priority: flexible
+          use-only-tar-bz2: false  # disable strict tar.bz2-only mode
 
       - name: Verify environment
         run: conda list
