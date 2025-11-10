@@ -1,0 +1,22 @@
+name: base
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python=3.10
+  - numpy==1.26.4
+  - pandas==2.2.2
+  - matplotlib==3.9.0
+  - scikit-learn==1.5.2
+  - statsmodels==0.14.2
+  - geopandas==0.14.3
+  - shapely==2.0.4
+  - osmnx==1.9.4
+  - networkx==3.2.1
+  - dask==2024.5.1
+  - pyarrow
+  - pip
+  - pip:
+      - pytest
+      - flake8
+
