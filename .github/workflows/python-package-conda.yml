@@ -8,10 +8,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    defaults:
-      run:
-        working-directory: TSAS_Special_Issue_Urban_Mobility
-
     steps:
       # ----------------- 1. Checkout the repository -----------------
       - name: Checkout repository
@@ -30,7 +26,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/conda_pkgs_dir
-          key: ${{ runner.os }}-conda-${{ hashFiles('TSAS_Special_Issue_Urban_Mobility/environment.yml') }}
+          key: ${{ runner.os }}-conda-${{ hashFiles('environment.yml') }}
           restore-keys: |
             ${{ runner.os }}-conda-
 
@@ -38,8 +34,8 @@ jobs:
       - name: Set up Miniconda
         uses: conda-incubator/setup-miniconda@v3
         with:
-          activate-environment: ci-environment             # must match 'name:' in environment.yml
-          environment-file: environment.yml
+          activate-environment: ci-environment
+          environment-file: environment.yml   # ✅ path now correct
           python-version: 3.10
           auto-update-conda: true
           use-mamba: true
