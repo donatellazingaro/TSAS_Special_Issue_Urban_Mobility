@@ -39,7 +39,7 @@ jobs:
         uses: conda-incubator/setup-miniconda@v3
         with:
           activate-environment: ci-environment             # must match 'name:' in environment.yml
-          environment-file: TSAS_Special_Issue_Urban_Mobility/environment.yml
+          environment-file: environment.yml
           python-version: 3.10
           auto-update-conda: true
           use-mamba: true
