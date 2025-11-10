@@ -19,4 +19,4 @@ dependencies:
   - pip:
       - pytest
       - flake8
-
+      - package_name_not_in_conda
