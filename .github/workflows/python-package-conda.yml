@@ -8,9 +8,21 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    # Make sure all steps run inside the actual repository folder
+    defaults:
+      run:
+        working-directory: TSAS_Special_Issue_Urban_Mobility
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Show working directory contents  # 🔍 diagnostic (safe to keep)
+        run: |
+          echo "Current directory:"
+          pwd
+          echo "Files:"
+          ls -al
 
       # Cache Conda packages
       - name: Cache Conda
@@ -21,6 +33,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-conda-
 
+      # Set up Conda environment
       - name: Set up Miniconda
         uses: conda-incubator/setup-miniconda@v3
         with:
@@ -33,12 +46,9 @@ jobs:
 
       - name: Verify environment
         run: conda list
-        working-directory: ./TSAS_Special_Issue_Urban_Mobility
 
       - name: Lint with flake8
         run: flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-        working-directory: ./TSAS_Special_Issue_Urban_Mobility
 
       - name: Run tests with pytest
         run: pytest
-        working-directory: ./TSAS_Special_Issue_Urban_Mobility
