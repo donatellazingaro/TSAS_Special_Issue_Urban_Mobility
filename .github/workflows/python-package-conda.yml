@@ -7,9 +7,19 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      # Cache Conda packages to speed up builds
+      - name: Cache Conda
+        uses: actions/cache@v4
+        with:
+          path: ~/conda_pkgs_dir
+          key: ${{ runner.os }}-conda-${{ hashFiles('environment.yml') }}
+          restore-keys: |
+            ${{ runner.os }}-conda-
 
       - name: Set up Miniconda
         uses: conda-incubator/setup-miniconda@v3
@@ -19,6 +29,7 @@ jobs:
           python-version: 3.10
           auto-update-conda: true
           channels: conda-forge, defaults
+          use-only-tar-bz2: true  # ensures cache compatibility
 
       - name: Verify environment
         run: conda list
@@ -28,4 +39,3 @@ jobs:
 
       - name: Run tests with pytest
         run: pytest
-
