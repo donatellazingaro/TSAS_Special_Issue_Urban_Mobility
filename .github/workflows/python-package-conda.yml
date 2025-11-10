@@ -10,7 +10,8 @@ jobs:
 
     defaults:
       run:
-        working-directory: TSAS_Special_Issue_Urban_Mobility
+        working-directory: .
+
 
     steps:
       - name: Checkout repository
