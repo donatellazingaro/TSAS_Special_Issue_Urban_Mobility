@@ -1,4 +1,4 @@
-name: base
+name: ci-environment
 channels:
   - conda-forge
   - defaults
@@ -19,3 +19,7 @@ dependencies:
   - pip:
       - pytest
       - flake8
+<<<<<<< HEAD
+=======
+      - package_name_not_in_conda
+>>>>>>> 48b1e10b4bc5007ca25bb67f37c8a37e9f095547
