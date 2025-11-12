@@ -1,6 +1,9 @@
 # How Sense of Direction, Spatial Anxiety, and Urban Form Shape Interaction with GPS-Embedded Mobile Map Applications  
 ### Repository for Zingaro et al., ACM TSAS (2025, in review)
 
+[![Build Status](https://github.com/DonatellaZingaro/TSAS_Special_Issue_Urban_Mobility/actions/workflows/python-package-conda.yml/badge.svg)](https://github.com/DonatellaZingaro/TSAS_Special_Issue_Urban_Mobility/actions/workflows/python-package-conda.yml)
+
+
 This repository contains the full analysis pipeline supporting the manuscript:
 
 > **How Sense of Direction, Spatial Anxiety, and Urban Form Shape Interaction with GPS-Embedded Mobile Map Applications**  
