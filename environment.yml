@@ -24,4 +24,5 @@ dependencies:
       - black==24.8.0
       - jupyterlab==4.2.4
       - notebook==6.5.4
+      - flake8==6.1.0
           
