@@ -35,31 +35,39 @@ jobs:
         uses: conda-incubator/setup-miniconda@v3
         with:
           activate-environment: ci-environment
-          environment-file: environment.yml   # ✅ stays in repo root
+          environment-file: environment.yml
           python-version: 3.11
           auto-update-conda: true
+          auto-activate-base: false
           use-mamba: true
           channels: conda-forge,defaults
 
       # ----------------- 5. Verify environment ----------------------
       - name: Verify environment
-        run: conda list
+        run: |
+          eval "$(conda shell.bash hook)"
+          conda activate ci-environment
+          conda list
 
-     # ----------------- 6. Check where flake8 is -------------------
+      # ----------------- 6. Check where flake8 is -------------------
       - name: Check where flake8 is
         run: |
-          source activate ci-environment
+          eval "$(conda shell.bash hook)"
+          conda activate ci-environment
           which flake8 || echo "flake8 not found"
 
       # ----------------- 7. Lint code with flake8 -------------------
       - name: Lint with flake8
         run: |
-          source activate ci-environment
+          eval "$(conda shell.bash hook)"
+          conda activate ci-environment
           echo "Running flake8 linting..."
           flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
 
-      # ----------------- 7. Run tests with pytest -------------------
+      # ----------------- 8. Run tests with pytest -------------------
       - name: Run tests with pytest
         run: |
+          eval "$(conda shell.bash hook)"
+          conda activate ci-environment
           echo "Running pytest..."
           pytest -v
