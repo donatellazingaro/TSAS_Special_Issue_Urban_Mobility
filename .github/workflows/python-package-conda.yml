@@ -71,3 +71,16 @@ jobs:
           conda activate ci-environment
           echo "Running pytest..."
           pytest -v || echo "⚠️ No tests found — skipping test step, CI passed successfully."
+      
+      # ----------------- 9. Execute Jupyter notebooks -------------------
+      - name: Run Jupyter notebooks
+        run: |
+           eval "$(conda shell.bash hook)"
+           conda activate ci-environment
+           echo "Executing all notebooks in /notebooks..."
+           for nb in notebooks/*.ipynb; do
+           echo "Running $nb"
+           jupyter nbconvert --to notebook --execute "$nb" --output-dir="notebooks/outputs" --ExecutePreprocessor.timeout=600
+           done
+      
+  
