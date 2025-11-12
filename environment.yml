@@ -16,7 +16,7 @@ dependencies:
   - networkx=3.2.1
   - dask=2024.5.1
   - pyarrow=14.0.2
-   - flake8==6.1.0
+  - flake8==6.1.0
   - pip
   - pip:
       - pymc==5.15.1
